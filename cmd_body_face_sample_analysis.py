@@ -13,6 +13,8 @@ from modules.settings import ProjectSettings
 from tools.util.logger import Logger
 import matplotlib.pyplot as plt
 import numpy as np
+import pickle
+
 
 __author__ = "Jakrin Juangbhanich"
 __email__ = "juangbhanich.k@gmail.com"
@@ -22,6 +24,8 @@ body_labels = ['/m/04yx4', '/m/03bt1vf', '/m/01g317', '/m/05r655', '/m/01bl7v']
 
 # face_labels = ['HUMAN FACE', 'HUMAN HEAD']
 face_labels = ['/m/0dzct', '/m/04hgtk']
+
+# car_labels = [/m/01prls,Land vehicle]
 
 
 if __name__ == "__main__":
@@ -52,6 +56,8 @@ if __name__ == "__main__":
     num_face_samples = 0
     num_body_face_samples = 0
 
+    body_face_sample = {}
+
     for sample in samples:
         body_flag = False
         face_flag = False
@@ -69,6 +75,10 @@ if __name__ == "__main__":
             num_face_samples += 1
         if body_flag and face_flag:
             num_body_face_samples += 1
+            body_face_sample[sample.key] = sample
+
+    with open('body_face_sample.pickle', 'wb') as f:
+        pickle.dump(body_face_sample, f)
 
 print(num_body_samples)
 print(num_face_samples)

@@ -15,7 +15,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 
-
 __author__ = "Jakrin Juangbhanich"
 __email__ = "juangbhanich.k@gmail.com"
 
@@ -25,8 +24,8 @@ body_labels = ['/m/04yx4', '/m/03bt1vf', '/m/01g317', '/m/05r655', '/m/01bl7v']
 # face_labels = ['HUMAN FACE', 'HUMAN HEAD']
 face_labels = ['/m/0dzct', '/m/04hgtk']
 
-# car_labels = [/m/01prls,Land vehicle]
-
+# car_labels = ['Land vehicle']
+car_labels = ['/m/01prls']
 
 if __name__ == "__main__":
 
@@ -54,13 +53,16 @@ if __name__ == "__main__":
 
     num_body_samples = 0
     num_face_samples = 0
+    num_car_samples = 0
     num_body_face_samples = 0
 
     body_face_sample = {}
+    car_sample = {}
 
     for sample in samples:
         body_flag = False
         face_flag = False
+        car_flag = False
 
         classes_in_sample = {}
         for region in sample.detect_regions:
@@ -68,18 +70,26 @@ if __name__ == "__main__":
                 body_flag = True
             if region.class_id in face_labels:
                 face_flag = True
+            if region.class_id in car_labels:
+                car_flag = True
 
         if body_flag:
             num_body_samples += 1
         if face_flag:
             num_face_samples += 1
+        if car_flag:
+            num_car_samples += 1
+            car_sample[sample.key] = sample
         if body_flag and face_flag:
             num_body_face_samples += 1
             body_face_sample[sample.key] = sample
 
     with open('body_face_sample.pickle', 'wb') as f:
         pickle.dump(body_face_sample, f)
+    with open('car_sample.pickle', 'wb') as f:
+        pickle.dump(car_sample, f)
 
-print(num_body_samples)
-print(num_face_samples)
-print(num_body_face_samples)
+    print('body: ', num_body_samples)
+    print('face: ', num_face_samples)
+    print('car: ', num_car_samples)
+    print('b+f: ', num_body_face_samples)

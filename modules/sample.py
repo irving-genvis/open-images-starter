@@ -177,7 +177,7 @@ class Sample:
             i += 1
 
         for region in detect_regions:
-            if region.class_id not in custom_label:
+            if region.class_id not in custom_label or region.is_group_of:
                 continue
             # Convert the relative region to pixel coordinates.
             pixel_region = Region(

@@ -88,7 +88,9 @@ def convert_sample_to_xml(s: Sample, dataset_dir):
     # car_labels = ['Land vehicle']
     car_labels = ['/m/01prls']
 
-    img = s.image
+    ret, img = s.image
+    if not ret:
+        return False
     height, width, channel = img.shape
     xml_path = os.path.join(dataset_dir, 'annotations', 'xmls')
 
@@ -114,6 +116,7 @@ def convert_sample_to_xml(s: Sample, dataset_dir):
 
     write_to_xml(xml_path, s.key + '.jpg', bbox_list, cls_list,
                  img_size=[width, height, channel])
+    return True
 
 
 dataset_dir = ProjectSettings.instance().GENVIS_OBJ_DET_DIRECTORY
@@ -146,8 +149,9 @@ with open(os.path.join(dataset_dir, 'annotations', 'trainval.txt'), 'w') as f:
         key = image_name.split('.')[0]
         sample = custom_samples[key]
         # convert sample to xml annotations
-        f.write(image_name + '\n')
-        convert_sample_to_xml(sample, dataset_dir)
+        ret = convert_sample_to_xml(sample, dataset_dir)
+        if ret:
+            f.write(image_name + '\n')
         # os.system('mv ' + sample._local_path + ' ' + dataset_dir + '/images')
         # download images
         # os.system('wget ' + sample.remote_path + ' -P ' + dataset_dir + '/images')

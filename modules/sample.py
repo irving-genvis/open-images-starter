@@ -46,15 +46,21 @@ class Sample:
     @property
     def image(self):
         """ Get the CV2 image for this sample (BGR Format). """
+
         if not self.is_locally_loaded:
             self.load()
-
-        try:
-            return cv2.imread(self._local_image_path)
-        except Exception as e:
-            Logger.log_field(f"Error Loading Image {self.key}", e)
+        img = cv2.imread(self._local_image_path)
+        if img is None:
             os.remove(self._local_image_path)
-            exit(1)
+            return False, None
+        else:
+            return True, img
+        # try:
+        #     return cv2.imread(self._local_image_path)
+        # except Exception as e:
+        #     Logger.log_field(f"Error Loading Image {self.key}", e)
+        #     os.remove(self._local_image_path)
+        #     exit(1)
 
     # @property
     # def _local_image_path(self):

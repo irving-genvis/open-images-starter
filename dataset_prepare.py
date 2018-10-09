@@ -141,9 +141,12 @@ if not os.path.exists(os.path.join(dataset_dir, 'images')):
 
 
 with open(os.path.join(dataset_dir, 'annotations', 'trainval.txt'), 'w') as f:
-    for key, sample in custom_samples.items():
+    for image_name in os.listdir(ProjectSettings.instance().CUSTOM_STORAGE_DIRECTORY):
+    # for key, sample in custom_samples.items():
+        key = image_name.split('.')[0]
+        sample = custom_samples[key]
         # convert sample to xml annotations
-        f.write(key + '.jpg\n')
+        f.write(image_name + '\n')
         convert_sample_to_xml(sample, dataset_dir)
         # os.system('mv ' + sample._local_path + ' ' + dataset_dir + '/images')
         # download images

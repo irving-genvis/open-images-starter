@@ -78,10 +78,7 @@ class Sample:
     @staticmethod
     def get_set_path(set_index: int) -> str:
         """ Get the storage path for the specified set index."""
-        return os.path.join(
-            ProjectSettings.instance().STORAGE_DIRECTORY,
-            "sample_images",
-            f"set_{set_index}")
+        return ProjectSettings.instance().CUSTOM_STORAGE_DIRECTORY
     
     # ===================================================================================================
     # Visualization.

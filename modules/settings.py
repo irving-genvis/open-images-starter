@@ -33,4 +33,7 @@ class ProjectSettings(Settings):
         self.SAMPLES_DIRECTORY = "NONE"
         self.STORAGE_DIRECTORY = "NONE"
 
+        self.CUSTOM_STORAGE_DIRECTORY = "NONE"
+        self.GENVIS_OBJ_DET_DIRECTORY = "NONE"
+
         self.load(path)

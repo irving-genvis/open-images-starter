@@ -11,14 +11,9 @@ from pathlib import Path
 import os
 import pickle
 from modules.sample import Sample
-
-def get_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-df", "--dataset_folder", type=str, help="dataset folder")
-    return parser.parse_args()
+from modules.settings import ProjectSettings
 
 
-args = get_args()
 
 def write_to_xml(folder_path, fn, bboxes, names, img_size=[1920, 1080, 3], dataset='NA'):
     '''
@@ -121,7 +116,7 @@ def convert_sample_to_xml(s: Sample, dataset_dir):
                  img_size=[width, height, channel])
 
 
-dataset_dir = args.dataset_folder
+dataset_dir = ProjectSettings.instance().GENVIS_OBJ_DET_DIRECTORY
 
 with open('body_face_sample.pickle', 'rb') as f:
     body_face_samples: {str: Sample} = pickle.load(f)
@@ -150,7 +145,7 @@ with open(os.path.join(dataset_dir, 'annotations', 'trainval.txt'), 'w') as f:
         # convert sample to xml annotations
         f.write(key + '.jpg\n')
         convert_sample_to_xml(sample, dataset_dir)
-        os.system('mv ' + sample._local_path + ' ' + dataset_dir + '/images')
+        # os.system('mv ' + sample._local_path + ' ' + dataset_dir + '/images')
         # download images
         # os.system('wget ' + sample.remote_path + ' -P ' + dataset_dir + '/images')
 

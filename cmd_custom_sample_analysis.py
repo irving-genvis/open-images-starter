@@ -88,9 +88,6 @@ if __name__ == "__main__":
     with open('car_sample.pickle', 'wb') as f:
         pickle.dump(car_sample, f)
 
-    print(len(body_face_sample))
-    print(len(car_sample))
-
     custom_samples = body_face_sample.copy()
     custom_samples.update(car_sample)
     print(len(body_face_sample))

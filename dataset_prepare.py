@@ -153,7 +153,7 @@ with open(os.path.join(dataset_dir, 'annotations', 'trainval.txt'), 'w') as f:
         # convert sample to xml annotations
         ret = convert_sample_to_xml(sample, dataset_dir)
         if ret:
-            f.write(image_name + '\n')
+            f.write(key + '\n')
         # os.system('mv ' + sample._local_path + ' ' + dataset_dir + '/images')
         # download images
         # os.system('wget ' + sample.remote_path + ' -P ' + dataset_dir + '/images')

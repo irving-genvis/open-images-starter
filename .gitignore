@@ -12,3 +12,5 @@ samples/
 storage/
 
 *.csv
+
+*.pickle

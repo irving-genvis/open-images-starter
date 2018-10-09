@@ -132,6 +132,7 @@ with open('car_sample.pickle', 'rb') as f:
 custom_samples = body_face_samples.copy()
 custom_samples.update(car_samples)
 
+
 if not os.path.exists(dataset_dir):
     os.mkdir(dataset_dir)
 if not os.path.exists(os.path.join(dataset_dir, 'annotations')):

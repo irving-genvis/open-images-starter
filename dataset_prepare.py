@@ -147,6 +147,8 @@ with open(os.path.join(dataset_dir, 'annotations', 'trainval.txt'), 'w') as f:
     for image_name in os.listdir(ProjectSettings.instance().CUSTOM_STORAGE_DIRECTORY):
     # for key, sample in custom_samples.items():
         key = image_name.split('.')[0]
+        if key not in custom_samples.keys():
+            continue
         sample = custom_samples[key]
         # convert sample to xml annotations
         ret = convert_sample_to_xml(sample, dataset_dir)

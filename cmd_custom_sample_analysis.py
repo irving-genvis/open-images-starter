@@ -40,7 +40,7 @@ if __name__ == "__main__":
     # Get ALL of the samples in the directory.
     samples = []
     sample_files = os.listdir(settings.SAMPLES_DIRECTORY)
-    for i in sample_files:
+    for i in sample_files[:20]:
         file_path = os.path.join(settings.SAMPLES_DIRECTORY, i)
         samples += Loader.load_sample_set_from_file(file_path)
 
@@ -64,7 +64,6 @@ if __name__ == "__main__":
         face_flag = False
         car_flag = False
 
-        classes_in_sample = {}
         for region in sample.detect_regions:
             if region.class_id in body_labels:
                 body_flag = True
@@ -88,6 +87,16 @@ if __name__ == "__main__":
         pickle.dump(body_face_sample, f)
     with open('car_sample.pickle', 'wb') as f:
         pickle.dump(car_sample, f)
+
+    print(len(body_face_sample))
+    print(len(car_sample))
+
+    custom_samples = body_face_sample.copy()
+    custom_samples.update(car_sample)
+    print(len(body_face_sample))
+    print(len(car_sample))
+    print(len(custom_samples))
+
 
     print('body: ', num_body_samples)
     print('face: ', num_face_samples)

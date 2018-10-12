@@ -8,6 +8,7 @@ import pickle
 from modules.sample import Sample
 from multiprocessing import Pool
 from modules.settings import ProjectSettings
+import random
 
 with open('body_face_sample.pickle', 'rb') as f:
     body_face_samples: {str: Sample} = pickle.load(f)
@@ -18,6 +19,9 @@ with open('car_sample.pickle', 'rb') as f:
 custom_samples = body_face_samples.copy()
 custom_samples.update(car_samples)
 
+keys = list(custom_samples.keys())
+random.shuffle(keys)
+custom_samples = {key:custom_samples[key] for key in keys}
 
 iter_list = [(key, sample.remote_path) for key, sample in custom_samples.items()]
 

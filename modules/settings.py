@@ -35,5 +35,6 @@ class ProjectSettings(Settings):
 
         self.CUSTOM_STORAGE_DIRECTORY = "NONE"
         self.GENVIS_OBJ_DET_DIRECTORY = "NONE"
+        self.CUSTOM_LABELLED_DIRECTORY = "NONE"
 
         self.load(path)

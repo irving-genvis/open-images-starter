@@ -156,7 +156,9 @@ class Sample:
                              label_map_function: classmethod=None,
                              custom_label: List[str]=None):
         """ Draw the bounding boxes and labels for the detected regions."""
-        image = self.image
+        ret, image = self.image
+        if not ret:
+            exit()
         w = image.shape[1]
         h = image.shape[0]
 
